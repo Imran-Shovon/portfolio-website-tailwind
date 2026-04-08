@@ -225,6 +225,9 @@
   .mt-12 {
     margin-top: calc(var(--spacing) * 12);
   }
+  .mt-15 {
+    margin-top: calc(var(--spacing) * 15);
+  }
   .mt-16 {
     margin-top: calc(var(--spacing) * 16);
   }
@@ -411,14 +414,14 @@
   .bg-\[\#E3E3CE\] {
     background-color: #E3E3CE;
   }
+  .bg-\[\#FAFAF4\]\/50 {
+    background-color: color-mix(in oklab, #FAFAF4 50%, transparent);
+  }
   .bg-\[\#c9c7b4\] {
     background-color: #c9c7b4;
   }
   .bg-\[\#d6d3bf\] {
     background-color: #d6d3bf;
-  }
-  .bg-\[\#f9f9f0\]\/50 {
-    background-color: color-mix(in oklab, #f9f9f0 50%, transparent);
   }
   .bg-black {
     background-color: var(--color-black);
@@ -498,14 +501,14 @@
   .py-4 {
     padding-block: calc(var(--spacing) * 4);
   }
-  .py-10 {
-    padding-block: calc(var(--spacing) * 10);
-  }
   .pt-6 {
     padding-top: calc(var(--spacing) * 6);
   }
   .pt-8 {
     padding-top: calc(var(--spacing) * 8);
+  }
+  .pt-15 {
+    padding-top: calc(var(--spacing) * 15);
   }
   .pt-16 {
     padding-top: calc(var(--spacing) * 16);
@@ -699,14 +702,14 @@
       justify-self: flex-end;
     }
   }
-  .md\:px-10 {
-    @media (width >= 48rem) {
-      padding-inline: calc(var(--spacing) * 10);
-    }
-  }
   .md\:px-12 {
     @media (width >= 48rem) {
       padding-inline: calc(var(--spacing) * 12);
+    }
+  }
+  .md\:px-17\.5 {
+    @media (width >= 48rem) {
+      padding-inline: calc(var(--spacing) * 17.5);
     }
   }
   .md\:text-2xl {
@@ -748,11 +751,49 @@
       padding-inline: calc(var(--spacing) * 20);
     }
   }
+  .lg\:px-32 {
+    @media (width >= 64rem) {
+      padding-inline: calc(var(--spacing) * 32);
+    }
+  }
 }
-body-color: #c9c7b4;
-white-400: #f9f9f0;
-body {
-  background-color: var(--body-color);
+@font-face {
+  font-family: "Sofia Sans Condensed";
+  src: url("../fonts/Sofia_Sans_Condensed/SofiaSansCondensed-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sofia Sans Condensed";
+  src: url("../fonts/Sofia_Sans_Condensed/SofiaSansCondensed-Italic-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "The Last Shuriken";
+  src: url("../fonts/the-last-shuriken-2.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --body-color: #c9c7b4;
+  --white-400: #f9f9f0;
+  --font-sans: "Sofia Sans Condensed", ui-sans-serif, system-ui, sans-serif;
+}
+@layer base {
+  body {
+    background-color: var(--body-color);
+    font-family: "Sofia Sans Condensed", sans-serif;
+  }
+  .font-sofia {
+    font-family: "Sofia Sans Condensed", sans-serif;
+  }
+  .font-last-shuriken {
+    font-family: "The Last Shuriken", sans-serif;
+  }
 }
 @property --tw-space-y-reverse {
   syntax: "*";
