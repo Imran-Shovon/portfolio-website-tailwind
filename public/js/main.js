@@ -1,19 +1,18 @@
 // ============================================================
-// TESTIMONIAL CAROUSEL — 3 cards always visible
-// Center card is scaled up, outer cards are normal size.
-// Rotates automatically every 3s; pauses on hover.
+// TESTIMONIAL CAROUSEL
+// Mobile: 1 card full-width  |  Desktop: 3 cards, center scaled
+// Auto-rotates every 3s; pauses on hover.
 // ============================================================
 
 const testimonialLink =
   'https://www.linkedin.com/in/nadia-nisa-63998a266/details/recommendations/?detailScreenTabIndex=0';
 
 (function initTestimonialCarousel() {
-  const carousel = document.getElementById('testimonialCarousel');
+  const carousel   = document.getElementById('testimonialCarousel');
   const indicators = document.querySelectorAll('[data-carousel-indicator]');
 
   if (!carousel) return;
 
-  // Testimonial data
   const data = [
     {
       img: 'https://i.pravatar.cc/40?img=3',
@@ -35,28 +34,36 @@ const testimonialLink =
     },
   ];
 
-  // Index of the currently centered card (data index)
-  let centerIndex = 1; // start with card 2 in the middle
-  let autoTimer = null;
-  let isPaused = false;
+  let centerIndex = 1;
+  let autoTimer   = null;
+  let isPaused    = false;
 
-  // Build one card element
+  const isMobile = () => window.innerWidth < 768;
+
+  // ── Build a single card ──────────────────────────────────────
   function buildCard(item, position) {
-    // position: 'left' | 'center' | 'right'
     const isCenter = position === 'center';
+    const mobile   = isMobile();
+
     const div = document.createElement('div');
     div.setAttribute('data-testimonial-card', '');
     div.setAttribute('role', 'button');
     div.setAttribute('tabindex', '0');
     div.setAttribute('aria-label', 'Open LinkedIn recommendations');
 
+    // Width: full on mobile, 1/3 on desktop
+    const widthClass = mobile ? 'w-full' : 'w-[calc(33.333%-1rem)]';
+
+    // Scale + highlight only for desktop center card
+    const styleClass = (!mobile && isCenter)
+      ? 'scale-[1.07] shadow-2xl ring-2 ring-blue-200 z-10'
+      : (!mobile ? 'scale-100 opacity-80' : '');
+
     div.className = [
       'bg-white rounded-xl shadow-md p-6 cursor-pointer flex-shrink-0',
       'transition-all duration-500 ease-in-out',
-      'w-[calc(33.333%-1rem)]',
-      isCenter
-        ? 'scale-[1.07] shadow-2xl ring-2 ring-blue-200 z-10'
-        : 'scale-100 opacity-80',
+      widthClass,
+      styleClass,
     ].join(' ');
 
     div.innerHTML = `
@@ -89,38 +96,48 @@ const testimonialLink =
     return div;
   }
 
-  // Render 3 cards: left, center, right
-  function render(animationClass) {
-    const total = data.length;
+  // ── Render cards based on current mode ──────────────────────
+  function render(direction) {
+    const total      = data.length;
     const leftIndex  = (centerIndex - 1 + total) % total;
     const rightIndex = (centerIndex + 1) % total;
+    const mobile     = isMobile();
 
-    // Fade-slide out
-    carousel.style.opacity = '0';
-    carousel.style.transform = animationClass === 'next'
-      ? 'translateX(-18px)'
-      : animationClass === 'prev'
-        ? 'translateX(18px)'
+    // Slide-out
+    carousel.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+    carousel.style.opacity    = '0';
+    carousel.style.transform  = direction === 'next'
+      ? 'translateX(-20px)'
+      : direction === 'prev'
+        ? 'translateX(20px)'
         : 'translateX(0)';
 
     setTimeout(() => {
       carousel.innerHTML = '';
-      carousel.appendChild(buildCard(data[leftIndex],  'left'));
-      carousel.appendChild(buildCard(data[centerIndex], 'center'));
-      carousel.appendChild(buildCard(data[rightIndex], 'right'));
 
-      // Slide in
-      carousel.style.transform = animationClass === 'next'
-        ? 'translateX(18px)'
-        : animationClass === 'prev'
-          ? 'translateX(-18px)'
+      if (mobile) {
+        // Mobile: only the active card
+        carousel.appendChild(buildCard(data[centerIndex], 'center'));
+      } else {
+        // Desktop: left + center + right
+        carousel.appendChild(buildCard(data[leftIndex],   'left'));
+        carousel.appendChild(buildCard(data[centerIndex], 'center'));
+        carousel.appendChild(buildCard(data[rightIndex],  'right'));
+      }
+
+      // Slide-in from opposite side
+      carousel.style.transition = 'none';
+      carousel.style.transform  = direction === 'next'
+        ? 'translateX(20px)'
+        : direction === 'prev'
+          ? 'translateX(-20px)'
           : 'translateX(0)';
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           carousel.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-          carousel.style.opacity = '1';
-          carousel.style.transform = 'translateX(0)';
+          carousel.style.opacity    = '1';
+          carousel.style.transform  = 'translateX(0)';
         });
       });
 
@@ -130,11 +147,11 @@ const testimonialLink =
 
   function updateIndicators() {
     indicators.forEach((btn, i) => {
-      const isActive = i === centerIndex;
-      btn.classList.toggle('bg-gray-700', isActive);
-      btn.classList.toggle('w-10', isActive);
-      btn.classList.toggle('bg-gray-400', !isActive);
-      btn.classList.toggle('w-4', !isActive);
+      const active = i === centerIndex;
+      btn.classList.toggle('bg-gray-700', active);
+      btn.classList.toggle('w-10', active);
+      btn.classList.toggle('bg-gray-400', !active);
+      btn.classList.toggle('w-4', !active);
     });
   }
 
@@ -143,25 +160,14 @@ const testimonialLink =
     render('next');
   }
 
-  function prev() {
-    centerIndex = (centerIndex - 1 + data.length) % data.length;
-    render('prev');
-  }
-
   function startAuto() {
-    autoTimer = setInterval(() => {
-      if (!isPaused) next();
-    }, 3000);
-  }
-
-  function stopAuto() {
     clearInterval(autoTimer);
+    autoTimer = setInterval(() => { if (!isPaused) next(); }, 3000);
   }
 
   // Indicator clicks
   indicators.forEach((btn, i) => {
     btn.addEventListener('click', () => {
-      stopAuto();
       const direction = i > centerIndex ? 'next' : 'prev';
       centerIndex = i;
       render(direction);
@@ -169,12 +175,19 @@ const testimonialLink =
     });
   });
 
-  // Initial render (no animation)
+  // Re-render on resize (desktop ↔ mobile switch)
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => render(null), 200);
+  });
+
+  // Initial render
   carousel.style.transition = 'none';
   render(null);
-
   startAuto();
 })();
+
 
 // ============================================================
 // NAVBAR SMOOTH SCROLL
@@ -192,4 +205,41 @@ const testimonialLink =
       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
     );
   }
+})();
+
+// ============================================================
+// MOBILE MENU TOGGLE
+// ============================================================
+(function initMobileMenu() {
+  const menuBtn   = document.getElementById('mobileMenuBtn');
+  const closeBtn  = document.getElementById('mobileMenuClose');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  if (!menuBtn || !closeBtn || !mobileMenu) return;
+
+  function openMenu() {
+    mobileMenu.classList.remove('hidden');
+    mobileMenu.classList.add('flex');
+    document.body.style.overflow = 'hidden'; // prevent background scroll
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.add('hidden');
+    mobileMenu.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  menuBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+
+  // Close on nav link click and scroll to section
+  mobileMenu.querySelectorAll('[data-mobile-nav]').forEach((item) => {
+    item.addEventListener('click', () => {
+      const target = item.getAttribute('data-mobile-nav');
+      closeMenu();
+      setTimeout(() => {
+        document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
+      }, 200);
+    });
+  });
 })();

@@ -14,11 +14,12 @@
 
 <body class="overflow-x-hidden bg-[#E3E3CE]">
   <!-- ================= MAIN CONTAINER ================= -->
-  <div class="max-w-[1170px] mx-auto pt-15">
+  <div class="max-w-[1170px] mx-auto px-4 md:px-0 md:pt-15">
     <!-- ================= NAVBAR ================= -->
-    <nav class="bg-[#FAFAF4]/50 rounded-full px-6 md:px-17.5 py-4 flex justify-between items-center">
+    <nav class="sticky top-0 z-40 bg-[#E3E3CE] md:bg-[#FAFAF4]/50 rounded-none md:rounded-full px-6 md:px-17.5 py-4 flex justify-between items-center -mx-4 md:mx-0 transition-all duration-300">
       <img src="../public/images/logo1.png" alt="Logo" class="h-10" />
 
+      <!-- Desktop nav links -->
       <ul class="hidden md:flex gap-10 text-sm">
         <li class="cursor-pointer text-[#242424] font-semibold hover:text-grey-200">
           Home
@@ -31,11 +32,46 @@
         </li>
       </ul>
 
-      <div class="flex gap-4 items-center">
+      <!-- Desktop icons -->
+      <div class="hidden md:flex gap-4 items-center">
         <img src="../public/images/Svg/cv.svg" class="w-5" />
         <img src="../public/images/Svg/Linkdin.svg" class="w-5" />
       </div>
+
+      <!-- Mobile hamburger button -->
+      <button id="mobileMenuBtn"
+        class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5 cursor-pointer"
+        aria-label="Open menu">
+        <span class="block w-6 h-0.5 bg-[#242424] rounded"></span>
+        <span class="block w-6 h-0.5 bg-[#242424] rounded"></span>
+        <span class="block w-6 h-0.5 bg-[#242424] rounded"></span>
+      </button>
     </nav>
+
+    <!-- ================= MOBILE MENU OVERLAY ================= -->
+    <div id="mobileMenu" class="fixed inset-0 z-50 bg-[#E3E3CE] flex-col hidden">
+      <!-- Top bar -->
+      <div class="flex justify-between items-center px-6 pt-10 pb-6">
+        <img src="../public/images/logo1.png" alt="Logo" class="h-10" />
+        <button id="mobileMenuClose" class="cursor-pointer" aria-label="Close menu"
+          style="font-size: 28px; line-height:1; color:#242424; background:none; border:none; padding:0;">
+          &#x2715;
+        </button>
+      </div>
+
+      <!-- Nav links -->
+      <ul class="flex flex-col items-center gap-8 mt-10 text-lg font-semibold text-[#242424]">
+        <li class="cursor-pointer" data-mobile-nav="home">Home</li>
+        <li class="cursor-pointer" data-mobile-nav="work">My Work</li>
+        <li class="cursor-pointer" data-mobile-nav="contact">Contact Me</li>
+      </ul>
+
+      <!-- Social icons -->
+      <div class="flex flex-col items-center gap-5 mt-12">
+        <img src="../public/images/Svg/cv.svg" class="w-7 cursor-pointer" />
+        <img src="../public/images/Svg/Linkdin.svg" class="w-7 cursor-pointer" />
+      </div>
+    </div>
 
     <!-- ================= HERO ================= -->
     <section id="home" class="grid md:grid-cols-2 items-center gap-12 mt-15">
@@ -73,7 +109,7 @@
   </div>
 
   <!-- ================= SKILL BAR ================= -->
-  <div class="bg-black text-white py-3 mt-4 -ml-12 -mr-12 -rotate-2 overflow-hidden">
+  <div class="bg-black text-white py-3 mt-4 md:-ml-12 -mr-12 -rotate-2 overflow-hidden">
     <div class="flex gap-7 text-[20px] font-bold whitespace-nowrap px-10">
       <span>App Design</span>
       <img src="../public/images/divider.png" />
@@ -104,7 +140,7 @@
   </div>
 
   <!-- ================= MY WORK ================= -->
-  <section id="work" class="max-w-[1170px] mx-auto mt-20">
+  <section id="work" class="max-w-[1170px] mx-auto px-4 md:px-0 mt-20">
     <div class="flex justify-between items-center mb-12">
       <h2 class="text-3xl md:text-4xl font-extrabold uppercase">My Work</h2>
 
@@ -188,7 +224,7 @@
   </section>
 
   <!-- ================= BANNER ================= -->
-  <section class="max-w-[1170px] mx-auto mt-37">
+  <section class="max-w-[1170px] mx-auto px-4 md:px-0 mt-37">
     <div class="banner">
       <!-- Right content -->
       <div class="max-w-md z-10 ml-auto text-left">
@@ -204,22 +240,22 @@
   </section>
 
   <!-- ================= CONTACT ================= -->
-  <section id="contact" class="max-w-[1170px] mx-auto mt-37">
-    <h2 class="text-3xl md:text-4xl font-extrabold mb-16">CONTACT ME</h2>
+  <section id="contact" class="max-w-[1170px] mx-auto px-4 md:px-0 mt-37">
+    <h2 class="text-3xl md:text-4xl font-extrabold md:mb-16">CONTACT ME</h2>
 
-    <div class="grid md:grid-cols-2 items-center gap-16">
-      <div>
+    <div class="grid md:grid-cols-2 items-center md:gap-16">
+      <div class=" hidden md:block">
         <img src="../public/images/contactMeLeft.png" class="h-[373px]" />
       </div>
 
-      <div class="flex justify-center md:justify-self-end">
-        <img src="../public/images/QRCode.png" class="w-56 md:w-72" />
+      <div class="flex justify-start md:justify-self-end">
+        <img src="../public/images/QRCode.png" class="w-60 md:w-72" />
       </div>
     </div>
   </section>
 
   <!-- ================= TESTIMONIAL ================= -->
-  <section class="max-w-[1170px] mx-auto mt-37">
+  <section class="max-w-[1170px] mx-auto px-4 md:px-0 mt-12 md:mt-37">
     <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-12">
       <h2 class="text-4xl md:text-5xl font-extrabold tracking-widest">
         TESTIMONIAL
@@ -323,20 +359,20 @@
 
   <!-- ================= FOOTER ================= -->
   <footer class="bg-[#1f1f1f] text-gray-300 mt-20 pt-16 pb-6">
-    <div class="max-w-[1170px] mx-auto grid md:grid-cols-3 gap-12">
-      <div>
+    <div class="max-w-[1170px] mx-auto px-4 md:px-0 grid md:grid-cols-3 gap-12">
+      <div class="flex flex-col items-center md:items-start text-center md:text-left">
         <img src="../public/images/logo-footer.png" alt="" />
 
-        <p class="text-sm text-white max-w-xs">
+        <p class="text-sm text-white max-w-xs mt-6 md:mt-0">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et
         </p>
       </div>
 
-      <div class="md:justify-self-end text-left">
-        <h4 class="text-white font-semibold mb-4">Explore</h4>
+      <div class="md:justify-self-end text-center md:text-left">
+        <h4 class="text-white font-semibold mb-4 text-lg md:text-base">Explore</h4>
 
-        <ul class="space-y-2 text-sm">
+        <ul class="space-y-4 md:space-y-2 text-sm">
           <li class="hover:text-white cursor-pointer">Work</li>
 
           <li class="hover:text-white cursor-pointer">Resume</li>
@@ -345,20 +381,20 @@
         </ul>
       </div>
 
-      <div class="md:justify-self-end text-left">
-        <h4 class="text-white font-semibold mb-4">Connect</h4>
+      <div class="md:justify-self-end text-center md:text-left flex flex-col items-center md:items-start">
+        <h4 class="text-white font-semibold mb-4 hidden md:block">Connect</h4>
 
-        <div class="flex flex-col gap-4 text-xl">
+        <div class="flex flex-row md:flex-col justify-center items-center gap-8 md:gap-4 text-xl">
           <a href="https://www.linkedin.com/in/nadia-nisa-63998a266/" target="_blank" rel="noopener noreferrer"
             class="cursor-pointer inline-block">
-            <img src="../public/images/linedin-footer.png" class="w-5" />
+            <img src="../public/images/linedin-footer.png" class="w-7 md:w-5" />
           </a>
           <a href="mailto:nadisa9898@gmail.com" class="cursor-pointer inline-block">
-            <img src="../public/images/email-footer.png" class="w-5" />
+            <img src="../public/images/email-footer.png" class="w-8 md:w-5" />
           </a>
           <a href="https://www.behance.net/nadianisa5" target="_blank" rel="noopener noreferrer"
             class="cursor-pointer inline-block">
-            <img src="../public/images/Be.png" class="w-5" />
+            <img src="../public/images/Be.png" class="w-7 md:w-5" />
           </a>
         </div>
       </div>

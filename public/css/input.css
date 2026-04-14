@@ -34,6 +34,7 @@
   body {
     background-color: var(--body-color);
     font-family: "Sofia Sans Condensed", sans-serif;
+    overflow-x: hidden;
   }
 
   .font-sofia {
