@@ -2,8 +2,7 @@
 
 @font-face {
   font-family: "Sofia Sans Condensed";
-  src: url("../fonts/Sofia_Sans_Condensed/SofiaSansCondensed-VariableFont_wght.ttf")
-    format("truetype");
+  src: url("../fonts/Sofia_Sans_Condensed/SofiaSansCondensed-VariableFont_wght.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -11,8 +10,7 @@
 
 @font-face {
   font-family: "Sofia Sans Condensed";
-  src: url("../fonts/Sofia_Sans_Condensed/SofiaSansCondensed-Italic-VariableFont_wght.ttf")
-    format("truetype");
+  src: url("../fonts/Sofia_Sans_Condensed/SofiaSansCondensed-Italic-VariableFont_wght.ttf") format("truetype");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
