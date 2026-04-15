@@ -520,9 +520,6 @@
   .bg-\[\#E3E3CE\] {
     background-color: #E3E3CE;
   }
-  .bg-\[\#FAFAF4\]\/50 {
-    background-color: color-mix(in oklab, #FAFAF4 50%, transparent);
-  }
   .bg-\[\#c9c7b4\] {
     background-color: #c9c7b4;
   }
@@ -603,9 +600,6 @@
   }
   .pt-10 {
     padding-top: calc(var(--spacing) * 10);
-  }
-  .pt-15 {
-    padding-top: calc(var(--spacing) * 15);
   }
   .pt-16 {
     padding-top: calc(var(--spacing) * 16);
