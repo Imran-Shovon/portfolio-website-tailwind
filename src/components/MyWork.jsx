@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function MyWork() {
   const projects = [
     {
@@ -49,9 +51,9 @@ export default function MyWork() {
     <section id="work" className="max-w-[1170px] mx-auto px-4 md:px-0 mt-20">
       <div className="flex justify-between items-center mb-12">
         <h2 className="text-3xl md:text-4xl font-extrabold uppercase">My Work</h2>
-        <a href="my-work.html" className="text-sm underline">
+        <Link to="/my-work" className="text-sm underline cursor-pointer hover:text-gray-600">
           View All
-        </a>
+        </Link>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">

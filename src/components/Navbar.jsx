@@ -1,37 +1,52 @@
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const scrollTo = (id) => {
+  const handleNavClick = (id) => {
     setMobileMenuOpen(false);
-    setTimeout(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    }, mobileMenuOpen ? 200 : 0);
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    } else {
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, mobileMenuOpen ? 200 : 0);
+    }
+  };
+
+  const handleMyWorkClick = () => {
+    setMobileMenuOpen(false);
+    navigate('/my-work');
   };
 
   return (
     <>
       {/* ================= NAVBAR ================= */}
       <nav className="sticky top-0 z-40 bg-[#E3E3CE] md:bg-[#FAFAF4]/50 rounded-none md:rounded-full px-6 md:px-17.5 py-4 flex justify-between items-center -mx-4 md:mx-0 transition-all duration-300">
-        <img src="/images/logo1.png" alt="Logo" className="h-10" />
+        <img src="/images/logo1.png" alt="Logo" className="h-10 cursor-pointer" onClick={() => handleNavClick('home')} />
 
         {/* Desktop nav links */}
         <ul className="hidden md:flex gap-10 text-sm">
           <li
-            onClick={() => scrollTo('home')}
+            onClick={() => handleNavClick('home')}
             className="cursor-pointer text-[#242424] font-semibold hover:text-gray-500"
           >
             Home
           </li>
           <li
-            onClick={() => scrollTo('work')}
+            onClick={handleMyWorkClick}
             className="cursor-pointer text-[#242424] font-semibold hover:text-gray-500"
           >
             My Work
           </li>
           <li
-            onClick={() => scrollTo('contact')}
+            onClick={() => handleNavClick('contact')}
             className="cursor-pointer text-[#242424] font-semibold hover:text-gray-500"
           >
             Contact Me
@@ -84,13 +99,13 @@ export default function Navbar() {
 
         {/* Nav links */}
         <ul className="flex flex-col items-center gap-8 mt-10 text-lg font-semibold text-[#242424]">
-          <li className="cursor-pointer" onClick={() => scrollTo('home')}>
+          <li className="cursor-pointer" onClick={() => handleNavClick('home')}>
             Home
           </li>
-          <li className="cursor-pointer" onClick={() => scrollTo('work')}>
+          <li className="cursor-pointer" onClick={handleMyWorkClick}>
             My Work
           </li>
-          <li className="cursor-pointer" onClick={() => scrollTo('contact')}>
+          <li className="cursor-pointer" onClick={() => handleNavClick('contact')}>
             Contact Me
           </li>
         </ul>
